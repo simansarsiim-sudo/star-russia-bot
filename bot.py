@@ -1,20 +1,27 @@
 from telegram import (
     Update,
-    ReplyKeyboardMarkup
+    ReplyKeyboardMarkup,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    LabeledPrice
 )
+
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     MessageHandler,
+    PreCheckoutQueryHandler,
+    CallbackQueryHandler,
     ContextTypes,
     filters
 )
 
 TOKEN = "8896501044:AAFsluRRZSMIdoGuzLCHn5ty_mmjponR55w"
 
-# Кнопки меню
+# Главное меню
 keyboard = [
-    ["🔗 ССЫЛКИ", "💸 ПОКУПКА АДМИНИСТРАТОРА"]
+    ["🔗 ССЫЛКИ", "💸 ПОКУПКА АДМИНИСТРАТОРА"],
+    ["📢 НОВОСТИ", "🛠 ПОМОЩЬ"]
 ]
 
 reply_markup = ReplyKeyboardMarkup(
@@ -22,7 +29,7 @@ reply_markup = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-# Команда /start
+# /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = """
@@ -37,7 +44,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 • 🛠 Команды и помощь
 • 🎁 Новости и акции
 
-Выбирай нужный раздел в меню ниже 👇
+Выбирай нужный раздел 👇
 """
 
     await update.message.reply_text(
@@ -45,7 +52,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
-# Обработка кнопок
+# Кнопки
 async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = update.message.text
@@ -56,55 +63,158 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = """
 🔗 Ссылки проекта STAR RUSSIA
 
-🌐 Форум — http://starrussia-forumm.sampproject.ru
-📢 Официальный канал — https://t.me/crmp_star
-💬 Чат проекта — https://t.me/Chat_StarCrmp
+🌐 Форум:
+https://yourforum.com
+
+📢 Канал:
+https://t.me/yourchannel
+
+💬 Чат:
+https://t.me/yourchat
 """
 
         await update.message.reply_text(text)
 
-    # Покупка администратора
+    # Новости
+    elif message == "📢 НОВОСТИ":
+
+        await update.message.reply_text(
+            "🎁 Пока новостей нет 😎"
+        )
+
+    # Помощь
+    elif message == "🛠 ПОМОЩЬ":
+
+        await update.message.reply_text(
+            "💬 По всем вопросам: @uzazeb"
+        )
+
+    # Покупка
     elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
 
+        keyboard = [
+            [
+                InlineKeyboardButton(
+                    "🛠 Администратор — 25⭐",
+                    callback_data="buy_admin"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "🛡 Ст. Администратор — 50⭐",
+                    callback_data="buy_sadmin"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "👑 Основатель — 225⭐",
+                    callback_data="buy_owner"
+                )
+            ]
+        ]
+
+        markup = InlineKeyboardMarkup(keyboard)
+
         text = """
-💸 Покупка администратора
+💸 Покупка администрации
 
-Здаров! Вот цены 👇
-
-Покупка прав администрации (Навсегда)
-только за Telegram звезды ⭐️
-
-Пока действуют скидки 👍
-
-👑 Основатель — 225 ⭐️
-👑 Зам. Основателя — 200 ⭐️
-🛡 Спец. Администратор — 185 ⭐️
-🛡 Зам. Спец. Админа — 170 ⭐️
-⭐ Команда проекта — 165 ⭐️
-🔰 Главный администратор — 150 ⭐️
-🔰 Зам. Гл. администратора — 125 ⭐️
-💻 Тех. Специалист — 100 ⭐️
-📋 Куратор администрации — 80 ⭐️
-🛠 Ст. администратор — 50 ⭐️
-🛠 Администратор — 25 ⭐️
-
-🆓 Ст. модератор — Бесплатно
-🆓 Модератор — Бесплатно
-🆓 Мл. модератор — Бесплатно
-
-💬 Покупка:
-@uzazeb
-
+Выберите привилегию 👇
 """
 
-        await update.message.reply_text(text)
+        await update.message.reply_text(
+            text,
+            reply_markup=markup
+        )
 
-# Запуск бота
+# Нажатия на кнопки
+async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    query = update.callback_query
+    await query.answer()
+
+    # Администратор
+    if query.data == "buy_admin":
+
+        prices = [LabeledPrice("Администратор", 25)]
+
+        await context.bot.send_invoice(
+            chat_id=query.message.chat_id,
+            title="Покупка Администратора",
+            description="Права администратора навсегда",
+            payload="admin_buy",
+            provider_token="",
+            currency="XTR",
+            prices=prices
+        )
+
+    # Ст админ
+    elif query.data == "buy_sadmin":
+
+        prices = [LabeledPrice("Ст. Администратор", 50)]
+
+        await context.bot.send_invoice(
+            chat_id=query.message.chat_id,
+            title="Покупка Ст. Администратора",
+            description="Права Ст. Администратора навсегда",
+            payload="sadmin_buy",
+            provider_token="",
+            currency="XTR",
+            prices=prices
+        )
+
+    # Основатель
+    elif query.data == "buy_owner":
+
+        prices = [LabeledPrice("Основатель", 225)]
+
+        await context.bot.send_invoice(
+            chat_id=query.message.chat_id,
+            title="Покупка Основателя",
+            description="Права Основателя навсегда",
+            payload="owner_buy",
+            provider_token="",
+            currency="XTR",
+            prices=prices
+        )
+
+# Проверка оплаты
+async def precheckout(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    query = update.pre_checkout_query
+    await query.answer(ok=True)
+
+# Успешная оплата
+async def successful_payment(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    await update.message.reply_text(
+        "✅ Оплата прошла успешно!\n\n"
+        "Ожидайте выдачу прав 👑"
+    )
+
+    # Уведомление владельцу
+    ADMIN_ID = 8416014400
+
+    await context.bot.send_message(
+        ADMIN_ID,
+        f"💸 Новая покупка!\n\n"
+        f"👤 @{update.effective_user.username}\n"
+        f"💰 Купил привилегию"
+    )
+
+# Запуск
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT, buttons))
+app.add_handler(CallbackQueryHandler(callback))
+app.add_handler(PreCheckoutQueryHandler(precheckout))
+app.add_handler(
+    MessageHandler(
+        filters.SUCCESSFUL_PAYMENT,
+        successful_payment
+    )
+)
 
-print("Бот запущен!")
+print("STAR RUSSIA BOT STARTED")
 
 app.run_polling()
