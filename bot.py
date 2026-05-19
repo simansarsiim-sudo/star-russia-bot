@@ -94,6 +94,7 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 💬 Покупка:
 @uzazeb
+
 """
 
         await update.message.reply_text(text)
