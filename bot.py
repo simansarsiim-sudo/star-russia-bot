@@ -217,4 +217,4 @@ app.add_handler(
 
 print("STAR RUSSIA BOT STARTED")
 
-app.run_polling()
+app.run_polling(drop_pending_updates=True)
