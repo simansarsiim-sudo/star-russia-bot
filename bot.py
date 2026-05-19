@@ -106,10 +106,10 @@ if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
         [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")]
     ])
 
-    await update.message.reply_text(
-        "💸 Покупка администрации\n\nВыберите привилегию 👇",
-        reply_markup=reply_markup
-    )
+    update.message.reply_text(
+    "💸 Покупка администрации\n\nВыберите привилегию 👇",
+    reply_markup=reply_markup
+)
 # Нажатия на кнопки
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
