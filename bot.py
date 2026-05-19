@@ -90,7 +90,7 @@ https://t.me/yourchat
         )
 
     # Покупка
-elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
+if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
 
     reply_markup = InlineKeyboardMarkup([
         [InlineKeyboardButton("👑 Основатель — 225⭐", callback_data="founder")],
@@ -110,7 +110,6 @@ elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
         "💸 Покупка администрации\n\nВыберите привилегию 👇",
         reply_markup=reply_markup
     )
-
 # Нажатия на кнопки
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
