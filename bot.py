@@ -90,26 +90,26 @@ https://t.me/yourchat
         )
 
     # Покупка
-if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
+    elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
 
-    reply_markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton("👑 Основатель — 225⭐", callback_data="founder")],
-        [InlineKeyboardButton("👑 Зам. Основателя — 200⭐", callback_data="zam_founder")],
-        [InlineKeyboardButton("🛡 Спец. Администратор — 185⭐", callback_data="spec_admin")],
-        [InlineKeyboardButton("🛡 Зам. Спец. Админа — 170⭐", callback_data="zam_spec")],
-        [InlineKeyboardButton("⭐ Команда проекта — 165⭐", callback_data="team")],
-        [InlineKeyboardButton("🔰 Главный администратор — 150⭐", callback_data="gl_admin")],
-        [InlineKeyboardButton("🔰 Зам. Гл. администратора — 125⭐", callback_data="zam_gl")],
-        [InlineKeyboardButton("💻 Тех. Специалист — 100⭐", callback_data="tech")],
-        [InlineKeyboardButton("📋 Куратор администрации — 80⭐", callback_data="curator")],
-        [InlineKeyboardButton("🛠 Ст. администратор — 50⭐", callback_data="st_admin")],
-        [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")]
-    ])
+        reply_markup = InlineKeyboardMarkup([
+            [InlineKeyboardButton("👑 Основатель — 225⭐", callback_data="founder")],
+            [InlineKeyboardButton("👑 Зам. Основателя — 200⭐", callback_data="zam_founder")],
+            [InlineKeyboardButton("🛡 Спец. Администратор — 185⭐", callback_data="spec_admin")],
+            [InlineKeyboardButton("🛡 Зам. Спец. Админа — 170⭐", callback_data="zam_spec")],
+            [InlineKeyboardButton("⭐ Команда проекта — 165⭐", callback_data="team")],
+            [InlineKeyboardButton("🔰 Главный администратор — 150⭐", callback_data="gl_admin")],
+            [InlineKeyboardButton("🔰 Зам. Гл. администратора — 125⭐", callback_data="zam_gl")],
+            [InlineKeyboardButton("💻 Тех. Специалист — 100⭐", callback_data="tech")],
+            [InlineKeyboardButton("📋 Куратор администрации — 80⭐", callback_data="curator")],
+            [InlineKeyboardButton("🛠 Ст. администратор — 50⭐", callback_data="st_admin")],
+            [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")]
+        ])
 
-    update.message.reply_text(
-    "💸 Покупка администрации\n\nВыберите привилегию 👇",
-    reply_markup=reply_markup
-)
+        await update.message.reply_text(
+            "💸 Покупка администрации\n\nВыберите привилегию 👇",
+            reply_markup=reply_markup
+        )
 # Нажатия на кнопки
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
