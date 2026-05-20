@@ -90,7 +90,7 @@ https://t.me/yourchat
         )
 
     # 💸 Покупка администратора
-elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
+if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
 
     keyboard = [
         [InlineKeyboardButton("👑 Основатель — 225⭐", callback_data="founder")],
@@ -104,8 +104,8 @@ elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
         [InlineKeyboardButton("📋 Куратор администрации — 80⭐", callback_data="curator")],
         [InlineKeyboardButton("🛠 Ст. администратор — 50⭐", callback_data="st_admin")],
         [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")],
-        [InlineKeyboardButton("🆓 Ст. модератор — Бесплатно", callback_data="st_moder")],
-        [InlineKeyboardButton("🆓 Модератор — Бесплатно", callback_data="moder")],
+        [InlineKeyboardButton("🆓 Ст. модератор — 10⭐", callback_data="st_moder")],
+        [InlineKeyboardButton("🆓 Модератор — 5⭐", callback_data="moder")],
         [InlineKeyboardButton("🆓 Мл. модератор — 3⭐", callback_data="ml_moder")]
     ]
 
@@ -114,7 +114,7 @@ elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
     await update.message.reply_text(
         "💸 Покупка администрации\n\nВыберите привилегию 👇",
         reply_markup=reply_markup
-)
+    )
 # Обработка кнопок
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
