@@ -15,7 +15,7 @@ from telegram.ext import (
     filters
 )
 
-TOKEN = "ТВОЙ_ТОКЕН_БОТА"
+TOKEN = "8896501044:AAFsluRRZSMIdoGuzLCHn5ty_mmjponR55w"
 
 # СТАРТ
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
