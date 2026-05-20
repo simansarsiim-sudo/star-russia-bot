@@ -145,19 +145,13 @@ async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 app.add_handler(CallbackQueryHandler(callback))
 
     # Администратор
+    async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    query = update.callback_query
+    await query.answer()
+
     if query.data == "buy_admin":
-
-        prices = [LabeledPrice("Администратор", 25)]
-
-        await context.bot.send_invoice(
-            chat_id=query.message.chat_id,
-            title="Покупка Администратора",
-            description="Права администратора навсегда",
-            payload="admin_buy",
-            provider_token="",
-            currency="XTR",
-            prices=prices
-        )
+        await query.message.reply_text("Вы выбрали администратора")
 
     # Ст админ
     elif query.data == "buy_sadmin":
