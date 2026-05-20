@@ -94,7 +94,7 @@ async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     query = update.callback_query
     await query.answer()
-
+    
     prices = {
         "founder": ("👑 Основатель", 225),
         "zam_founder": ("👑 Зам. Основателя", 200),
@@ -114,16 +114,18 @@ async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     title, stars = prices[query.data]
 
-    await context.bot.send_invoice(
-        chat_id=query.message.chat_id,
-        title=title,
-        description=f"Покупка привилегии: {title}",
-        payload=query.data,
-        provider_token="",
-        currency="XTR",
-        prices=[LabeledPrice(title, stars)]
-    )
+    user = query.from_user
 
+    await context.bot.send_message(
+        chat_id=OWNER_ID,
+        text=(
+            f"💸 Новая покупка!\n\n"
+            f"👤 Ник: @{user.username}\n"
+            f"🆔 ID: {user.id}\n"
+            f"🎖 Привилегия: {title}\n"
+            f"⭐️ Сумма: {stars}"
+        )
+    )
 # ЗАПУСК
 app = Application.builder().token(TOKEN).build()
 
