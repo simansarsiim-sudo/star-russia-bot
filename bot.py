@@ -116,6 +116,7 @@ async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     user = query.from_user
 
+    OWNER_ID = 8416014400
     await context.bot.send_message(
         chat_id=OWNER_ID,
         text=(
