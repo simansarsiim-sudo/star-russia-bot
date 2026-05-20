@@ -103,10 +103,9 @@ if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
         [InlineKeyboardButton("💻 Тех. Специалист — 100⭐", callback_data="tech")],
         [InlineKeyboardButton("📋 Куратор администрации — 80⭐", callback_data="curator")],
         [InlineKeyboardButton("🛠 Ст. администратор — 50⭐", callback_data="st_admin")],
-        [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")]
-    ]
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
+        [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")],
+        [InlineKeyboardButton("🆕 Мл. модератор — 3⭐", callback_data="jr_mod")]
+       reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
         "💸 Покупка администрации\n\nВыберите привилегию 👇",
