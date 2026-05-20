@@ -90,9 +90,9 @@ async def messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text(
             "🔗 Ссылки проекта:\n\n"
-            "🌐 Форум: https://yourforum.com\n"
-            "📢 Канал: https://t.me/yourchannel\n"
-            "💬 Чат: https://t.me/yourchat"
+            "🌐 Форум: http://starrussia-forumm.sampproject.ru\n"
+            "📢 Канал: https://t.me/crmp_star\n"
+            "💬 Чат: https://t.me/Chat_StarCrmp"
         )
 
     # НОВОСТИ
