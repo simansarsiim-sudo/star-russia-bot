@@ -89,8 +89,8 @@ https://t.me/yourchat
             "💬 По всем вопросам: @uzazeb"
         )
 
-    # Покупка администратора
-if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
+    # 💸 Покупка администратора
+elif message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
 
     keyboard = [
         [InlineKeyboardButton("👑 Основатель — 225⭐", callback_data="founder")],
@@ -104,26 +104,45 @@ if message == "💸 ПОКУПКА АДМИНИСТРАТОРА":
         [InlineKeyboardButton("📋 Куратор администрации — 80⭐", callback_data="curator")],
         [InlineKeyboardButton("🛠 Ст. администратор — 50⭐", callback_data="st_admin")],
         [InlineKeyboardButton("🛠 Администратор — 25⭐", callback_data="admin")],
-        [InlineKeyboardButton("🆕 Мл. модератор — 3⭐", callback_data="jr_mod")]
+        [InlineKeyboardButton("🆓 Ст. модератор — Бесплатно", callback_data="st_moder")],
+        [InlineKeyboardButton("🆓 Модератор — Бесплатно", callback_data="moder")],
+        [InlineKeyboardButton("🆓 Мл. модератор — 3⭐", callback_data="ml_moder")]
     ]
-       reply_markup = InlineKeyboardMarkup(keyboard)
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
         "💸 Покупка администрации\n\nВыберите привилегию 👇",
         reply_markup=reply_markup
-    )
+)
 # Обработка кнопок
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     query = update.callback_query
-
     await query.answer()
 
+    prices = {
+        "founder": "225⭐",
+        "zam_founder": "200⭐",
+        "spec_admin": "185⭐",
+        "zam_spec": "170⭐",
+        "team": "165⭐",
+        "gl_admin": "150⭐",
+        "zam_gl": "125⭐",
+        "tech": "100⭐",
+        "curator": "80⭐",
+        "st_admin": "50⭐",
+        "admin": "25⭐",
+        "st_moder": "Бесплатно",
+        "moder": "Бесплатно",
+        "ml_moder": "3⭐"
+    }
+
     await query.message.reply_text(
-        f"✅ Вы выбрали: {query.data}"
+        f"✅ Вы выбрали: {query.data}\n💰 Цена: {prices.get(query.data)}"
     )
 
-    app.add_handler(CallbackQueryHandler(callback))
+app.add_handler(CallbackQueryHandler(callback))
 
     # Администратор
     if query.data == "buy_admin":
