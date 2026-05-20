@@ -15,6 +15,8 @@ from telegram.ext import (
     filters
 )
 
+from telegram import LabeledPrice
+
 TOKEN = "8896501044:AAFsluRRZSMIdoGuzLCHn5ty_mmjponR55w"
 
 # СТАРТ
@@ -91,32 +93,36 @@ async def messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     query = update.callback_query
-
     await query.answer()
 
-    texts = {
-        "founder": "👑 Основатель — 225⭐",
-        "zam_founder": "👑 Зам. Основателя — 200⭐",
-        "spec_admin": "🛡 Спец. Администратор — 185⭐",
-        "zam_spec": "🛡 Зам. Спец. Админа — 170⭐",
-        "team": "⭐ Команда проекта — 165⭐",
-        "gl_admin": "🔰 Главный администратор — 150⭐",
-        "zam_gl": "🔰 Зам. Гл. администратора — 125⭐",
-        "tech": "💻 Тех. Специалист — 100⭐",
-        "curator": "📋 Куратор администрации — 80⭐",
-        "st_admin": "🛠 Ст. администратор — 50⭐",
-        "admin": "🛠 Администратор — 25⭐",
-        "st_moder": "🆓 Ст. модератор — 10⭐",
-        "moder": "🆓 Модератор — 5⭐",
-        "ml_moder": "🆓 Мл. модератор — 3⭐"
+    prices = {
+        "founder": ("👑 Основатель", 225),
+        "zam_founder": ("👑 Зам. Основателя", 200),
+        "spec_admin": ("🛡 Спец. Администратор", 185),
+        "zam_spec": ("🛡 Зам. Спец. Админа", 170),
+        "team": ("⭐ Команда проекта", 165),
+        "gl_admin": ("🔰 Главный администратор", 150),
+        "zam_gl": ("🔰 Зам. Гл. администратора", 125),
+        "tech": ("💻 Тех. Специалист", 100),
+        "curator": ("📋 Куратор администрации", 80),
+        "st_admin": ("🛠 Ст. администратор", 50),
+        "admin": ("🛠 Администратор", 25),
+        "st_moder": ("🆓 Ст. модератор", 10),
+        "moder": ("🆓 Модератор", 5),
+        "ml_moder": ("🆓 Мл. модератор", 3)
     }
 
-    text = texts.get(query.data, "Неизвестная привилегия")
+    title, stars = prices[query.data]
 
-    await query.message.reply_text(
-        f"✅ Вы выбрали:\n\n{text}\n\n💬 Для покупки: @uzazeb"
+    await context.bot.send_invoice(
+        chat_id=query.message.chat_id,
+        title=title,
+        description=f"Покупка привилегии: {title}",
+        payload=query.data,
+        provider_token="",
+        currency="XTR",
+        prices=[LabeledPrice(title, stars)]
     )
-
 
 # ЗАПУСК
 app = Application.builder().token(TOKEN).build()
